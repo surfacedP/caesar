@@ -1,53 +1,70 @@
 #! python3
 # main.py takes command line input and applies Caesar cipher
-# Currently only works with lower case letters and uses right shift of 1
+# Currently only works with lower case letters and uses right shift 1, 2, 3
 # TODO: add support for uppercase, numbers and special characters
 # TODO: add option to input encryption key
 
 import sys
 
-alpha = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-]
 
-if len(sys.argv) > 1:
+def caesar():
+    alpha = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+    ]
+
     unenc = " ".join(sys.argv[1:])
-    cnt1 = 0
+    unenc_cnt = 0
     enc = ""
+    cipher = [1, 2, 3]
+    cipher_cnt = 0
 
+    # Check every character in user input...
     for x in unenc:
-        cnt2 = 0
+        alpha_cnt = 0
+        # ...against every character in character list...
         for y in alpha:
-            if x == alpha[cnt2]:
-                enc = enc + alpha[cnt2 + 1]
-            cnt2 = cnt2 + 1
-        cnt1 = cnt1 + 1
+            # ...if a match, apply cipher and append to encrypted output.
+            if x == alpha[alpha_cnt]:
+                enc = enc + alpha[alpha_cnt + cipher[cipher_cnt]]
+                # Rotate through cipher.
+                if cipher_cnt == len(cipher) - 1:
+                    cipher_cnt = 0
+                else:
+                    cipher_cnt = cipher_cnt + 1
+            alpha_cnt = alpha_cnt + 1
+        unenc_cnt = unenc_cnt + 1
 
     print("Unencrypted:", unenc, "\nEncrypted:", enc)
+
+
+if len(sys.argv) > 1:
+    caesar()
+else:
+    print("No input from user")
 
 # Formatted with Black
